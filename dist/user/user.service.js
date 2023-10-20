@@ -23,8 +23,6 @@ let UserService = class UserService {
             },
             data: {
                 ...dto,
-                provider: "sadsad",
-                email: "sadsad",
             },
         });
         delete user.hash;
