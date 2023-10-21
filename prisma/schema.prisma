@@ -21,6 +21,7 @@ model User {
 
   username    String?
   picture     String?
+
   roles       Roles[]    @default([])
 
   createdAt   DateTime   @default(now())
@@ -29,9 +30,29 @@ model User {
   @@map("users")
 }
 
+model Game {
+  gameId      String     @id @default (auto ()) @map ("_id") @db.ObjectId
+
+  gameName    String 
+  picture     String[]   @default([])
+  price       Int
+  sale        Int        @default(0)
+  genres      genre[]    @default([])
+
+  createdAt   DateTime   @default(now())
+  updatedAp   DateTime   @updatedAt
+
+  @@map("games")
+}
+
 enum Roles {
   Admin
   Seller
   Buyer
   IT
+}
+
+enum genre {
+  Action
+  RPG
 }
