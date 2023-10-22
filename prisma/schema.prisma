@@ -24,6 +24,15 @@ model User {
 
   roles       Roles[]    @default([])
 
+  ownedGames   Game[]    @relation("Owner", fields: [ownedGameIds], references: [gameId])
+  ownedGameIds  String[] @db.ObjectId 
+
+  createdGames   Game[]    @relation("Creator", fields: [createdGameIds], references: [gameId])
+  createdGameIds  String[] @db.ObjectId
+
+  cartedGames Game[]     @relation("Carting", fields: [cartedGameIds], references: [gameId])
+  cartedGameIds String[] @db.ObjectId
+
   createdAt   DateTime   @default(now())
   updatedAp   DateTime   @updatedAt
 
@@ -38,6 +47,15 @@ model Game {
   price       Int
   sale        Int        @default(0)
   genres      genre[]    @default([])
+
+  ownedUsers     User[]     @relation("Owner",fields: [ownedUserIds], references: [userId])
+  ownedUserIds  String[]    @db.ObjectId
+
+  createdUsers    User[]    @relation("Creator",fields: [createdUserIds], references: [userId])
+  createdUserIds  String[]  @db.ObjectId
+
+  cartedUsers   User[]    @relation("Carting",fields: [cartedUserIds], references: [userId])
+  cartedUserIds String[]  @db.ObjectId
 
   createdAt   DateTime   @default(now())
   updatedAp   DateTime   @updatedAt
