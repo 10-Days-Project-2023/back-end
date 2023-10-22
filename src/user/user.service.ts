@@ -35,4 +35,17 @@ export class UserService {
       (r) => includes.includes(r) && !denied?.includes(r),
     );
   }
+
+  async getMyGame(userId: string) {
+    const games = await this.prisma.user.findUnique({
+      select : {
+        ownedGameIds : true
+      },
+      where : {
+        userId : userId
+      }
+    })
+
+    return games;
+  }
 }
