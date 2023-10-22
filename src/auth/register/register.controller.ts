@@ -19,7 +19,7 @@ export class RegisterController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Get('signin')
+  @Post('signin')
   signin(@Body() dto: SigninDto) {
     return this.registerService.signin(dto)
   }
