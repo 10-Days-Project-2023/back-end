@@ -6,7 +6,7 @@ import { CreateGameDto } from './tools';
 export class GameService {
   constructor(private prisma: PrismaService) {}
   
-  async crateGame(userId: string, dto: CreateGameDto) {
+  async createGame(userId: string, dto: CreateGameDto) {
     const game = await this.prisma.game.create({
       data: {
         ...dto,
