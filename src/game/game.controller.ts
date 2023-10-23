@@ -34,6 +34,16 @@ export class GameController {
     return this.gameService.getGamesByGenre(dto);
   }
 
+  @Get('top10')
+  getTop10(){
+    return this.gameService.getTop10();
+  }
+
+  @Get('random')
+  getRandomGame(){
+    return this.gameService.getRandomGame();
+  }
+
   @Get(':id')
   getGameById(@Param('id') id : string) {
     return this.gameService.getGameById(id);
