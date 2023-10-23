@@ -1,4 +1,4 @@
-import { Controller, FileTypeValidator, ParseFilePipe, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Controller, FileTypeValidator, HttpStatus, ParseFilePipe, ParseFilePipeBuilder, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 import { GetUser } from 'src/auth/auth.decorator';
@@ -12,13 +12,15 @@ export class UploadController {
     @Post()
     @UseInterceptors(FileInterceptor('file'))
     async uploadProfilePic(@UploadedFile(
-        new ParseFilePipe({
-            validators: [
-                //new MaxFileSizeValidator({ maxSize: 1000}),
-                //new FileTypeValidator({ fileType: 'image/png'}),
-            ],
-        }),
-    ) file: Express.Multer.File, @GetUser('userId') userId: string) {
+        new ParseFilePipeBuilder()
+          .addFileTypeValidator({
+            fileType: /(jpg|jpeg|png|gif)$/,
+          })
+          .addMaxSizeValidator({ maxSize: 5242880 })
+          .build({
+            errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+          }),
+      ) file: Express.Multer.File, @GetUser('userId') userId: string) {
         await this.uploadService.uploadProfilePic(file.originalname, file.buffer, userId);
     }
 }
