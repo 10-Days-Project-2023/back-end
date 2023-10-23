@@ -6,6 +6,8 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { GameModule } from './game/game.module';
 import { CartModule } from './cart/cart.module';
+import { UploadModule } from './upload/upload.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -13,7 +15,9 @@ import { CartModule } from './cart/cart.module';
     UserModule,
     AuthModule,
     GameModule,
-    CartModule
+    CartModule,
+    UploadModule,
+    ConfigModule.forRoot({ isGlobal: true}),
   ],
   controllers: [AppController],
   providers: [AppService],
