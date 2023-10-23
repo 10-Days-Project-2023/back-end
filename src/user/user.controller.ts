@@ -25,4 +25,10 @@ export class UserController {
   editUser(@GetUser('userId') userId: string, @Body() dto: EditUserDto) {
     return this.userService.editUser(userId, dto);
   }
+
+  @Get('myGame')
+  @UseGuards(JwtAuthGuard)
+  getMyGame(@GetUser('userId') userId: string) {
+    return this.userService.getMyGame(userId);
+  }
 }

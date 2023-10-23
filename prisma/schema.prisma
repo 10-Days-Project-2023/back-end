@@ -34,7 +34,7 @@ model User {
   cartedGameIds String[] @db.ObjectId
 
   createdAt DateTime @default(now())
-  updatedAp DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 
   @@map("users")
 }
@@ -58,7 +58,7 @@ model Game {
   cartedUserIds String[] @db.ObjectId
 
   createdAt DateTime @default(now())
-  updatedAp DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 
   @@map("games")
 }
