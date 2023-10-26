@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateGameDto, EditGameDto, GetGameByGenreDto } from "./tools";
-import { genre } from "@prisma/client";
+import { User, genre } from "@prisma/client";
 import { randomInt } from "crypto";
 
 @Injectable()
@@ -15,7 +15,7 @@ export class GameService {
         userId : true
       },
       where : {
-        username : {
+        username : {  
           in: dto.createdUsernames
         }
       }
@@ -117,6 +117,7 @@ export class GameService {
           genres: {
             has: genreName
           }
+
         },
         take: 10,
         skip: skip,
@@ -130,6 +131,30 @@ export class GameService {
       });
     }
     
+    return allRandomGame;
+  }
+
+  async getRandomGameByMember(user: User) {
+    const allRandomGame = [];
+    for (const genreName of Object.values(genre)) {
+      const filteredGame = await this.prisma.game.findMany({
+        where: {
+          genres: {
+            has: genreName
+          },
+          NOT: {
+            gameId: {
+              in: user.ownedGameIds,
+            },
+          },
+        },
+        take: 10,
+      });
+      allRandomGame.push({
+        "genre": genreName,
+        "games": filteredGame
+      });
+    }
     return allRandomGame;
   }
 }
