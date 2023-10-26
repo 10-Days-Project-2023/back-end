@@ -11,7 +11,6 @@ import { JwtAuthGuard } from '../auth/register/tools'
 import { GameService } from './game.service';
 import { CreateGameDto, EditGameDto, GetGameByGenreDto } from './tools';
 import { GetUser } from '../auth/auth.decorator';
-import { genre } from '@prisma/client';
 
 @Controller('game')
 export class GameController {
@@ -48,6 +47,4 @@ export class GameController {
   getGameById(@Param('id') id : string) {
     return this.gameService.getGameById(id);
   }
-
-  
 }

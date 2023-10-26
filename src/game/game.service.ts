@@ -15,7 +15,7 @@ export class GameService {
         userId : true
       },
       where : {
-        username : {
+        username : {  
           in: dto.createdUsernames
         }
       }
