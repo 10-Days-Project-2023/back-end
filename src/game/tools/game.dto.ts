@@ -22,7 +22,6 @@ export class CreateGameDto {
     @IsNotEmpty()
     genres: genre[];
 
-    @IsString()
     @IsNotEmpty()
     createdUsernames: string[];
 }
@@ -52,7 +51,6 @@ export class EditGameDto {
     @Optional()
     genres?: genre[];
 
-    @IsString()
     @Optional()
     createdUsernames?: string[];
 }

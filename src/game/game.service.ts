@@ -23,14 +23,12 @@ export class GameService {
 
     // throw error when not found
     if (!creators) throw new ForbiddenException('Credentials incorrect');
-    
+
+    delete dto.createdUsernames;
     // create game to db
     const game = await this.prisma.game.create({
       data: {
-        gameName: dto.gameName,
-        price: dto.price,
-        picture: dto.picture,
-        genres: dto.genres,
+        ...dto,
         createdUsers: {
           connect: creators
         }
@@ -40,7 +38,7 @@ export class GameService {
     return game;
   }
 
-  async editGame(userId: string, dto: EditGameDto) {
+  async editGame(userId: string, gameId: string, dto: EditGameDto) {
     const creators = await this.prisma.user.findMany({
       select : {
         userId : true
@@ -54,7 +52,7 @@ export class GameService {
 
     const game = await this.prisma.game.update({
       where: {
-        gameId : dto.gameId
+        gameId : gameId
       },
       data: {
         gameName: dto.gameName,
