@@ -7,6 +7,10 @@ export class CreateGameDto {
     @IsNotEmpty()
     gameName: string;
 
+    @IsString()
+    @IsNotEmpty()
+    description: string
+
     @IsNumber()
     @IsNotEmpty()
     price: number;
@@ -30,25 +34,25 @@ export class GetGameByGenreDto {
 
 export class EditGameDto {
     @IsString()
-    @IsNotEmpty()
-    gameId: string;
+    @Optional()
+    gameName?: string;
 
     @IsString()
     @Optional()
-    gameName: string;
+    description?: string
 
     @IsNumber()
     @Optional()
-    price: number;
+    price?: number;
 
     @IsString()
     @Optional()
-    picture: string[];
+    picture?: string[];
     
     @Optional()
-    genres: genre[];
+    genres?: genre[];
 
     @IsString()
     @Optional()
-    createdUsernames: string[];
+    createdUsernames?: string[];
 }
