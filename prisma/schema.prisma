@@ -43,23 +43,24 @@ model User {
 model Game {
   gameId String @id @default(auto()) @map("_id") @db.ObjectId
 
-  gameName String
-  picture  String[] @default([])
-  price    Int
-  sale     Int      @default(0)
-  genres   genre[]  @default([])
+  gameName        String
+  description     String
+  picture         String[]    @default([])
+  price           Int
+  sale            Int         @default(0)
+  genres          genre[]     @default([])
 
-  ownedUsers   User[]   @relation("Owner", fields: [ownedUserIds], references: [userId])
-  ownedUserIds String[] @db.ObjectId
+  ownedUsers      User[]      @relation("Owner", fields: [ownedUserIds], references: [userId])
+  ownedUserIds    String[]    @db.ObjectId
 
-  createdUsers   User[]   @relation("Creator", fields: [createdUserIds], references: [userId])
-  createdUserIds String[] @db.ObjectId
+  createdUsers    User[]      @relation("Creator", fields: [createdUserIds], references: [userId])
+  createdUserIds  String[]    @db.ObjectId
 
-  cartedUsers   User[]   @relation("Carting", fields: [cartedUserIds], references: [userId])
-  cartedUserIds String[] @db.ObjectId
+  cartedUsers     User[]      @relation("Carting", fields: [cartedUserIds], references: [userId])
+  cartedUserIds   String[]    @db.ObjectId
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 
   @@map("games")
 }
