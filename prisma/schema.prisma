@@ -19,7 +19,8 @@ model User {
   email             String     @unique
   hash              String?
 
-  username          String?
+  username          String     @unique
+  github            String?    
   picture           String?
   bulb              Int        @default(0)
 
