@@ -26,4 +26,8 @@ export class SignupDto{
     @IsString()
     @IsOptional()
     picture?: string
+
+    @IsString()
+    @IsOptional()
+    github?: string
 }
