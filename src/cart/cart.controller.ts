@@ -26,6 +26,11 @@ export class CartController {
     return this.cartService.updateCart(user, gameId);
   }
 
+  @Post("/purchase")
+  purchase(@GetUser() user: User) {
+    return this.cartService.purchase(user);
+  }
+
   @Delete("/:id")
   deleteCart(@GetUser() user: User, @Param('id') gameId: string){
     return this.cartService.deleteCart(user, gameId);
