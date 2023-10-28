@@ -49,9 +49,9 @@ export class GameController {
     return this.gameService.createGame(userId, dto);
   }
 
-  @Patch()
+  @Patch('/:gameId')
   @UseGuards(JwtAuthGuard)
-  editGame(@GetUser('userId') userId: string, @Body() dto: EditGameDto) {
-    return this.gameService.editGame(userId, dto);
+  editGame(@GetUser('userId') userId: string, @Param('gameId') gameId : string, @Body() dto: EditGameDto) {
+    return this.gameService.editGame(userId, gameId, dto);
   }
 }
