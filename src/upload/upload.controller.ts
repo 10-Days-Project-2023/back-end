@@ -14,27 +14,26 @@ export class UploadController {
     return this.uploadService.getProfilePicBase64(userId);
   }
 
-    @Post('profilepic')
-    @UseInterceptors(FileInterceptor('file'))
-    async uploadFileSubsecMultifile(
-        @UploadedFile() file: Express.Multer.File,
-        @GetUser('userId') userId: string
-    ) {
-        return this.uploadService.uploadProfilePic(userId, file);
-    }
+  @Post('profilepic')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFileSubsecMultifile(
+    @UploadedFile() file: Express.Multer.File,
+    @GetUser('userId') userId: string
+  ) {
+    return this.uploadService.uploadProfilePic(userId, file);
+  }
 
-    @Post('game/:id')
-    @UseInterceptors(FileInterceptor('file'))
-    async uploadFile(
-        @UploadedFile() file: Express.Multer.File,
-        @Param('id') gameId: string
-    ) {
-        return this.uploadService.uploadGame(gameId, file);
-    }
+  @Post('game/:id')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('id') gameId: string
+  ) {
+    return this.uploadService.uploadGame(gameId, file);
+  }
 
-    @Post('update/:id')
-    async updatePic(@Param('id') gameId:string, @Body() pic: string[]){
-        return this.uploadService.updatePic(gameId, pic);
-    }
-
+  @Post('update/:id')
+  async updatePic(@Param('id') gameId:string, @Body() pic: string[]){
+    return this.uploadService.updatePic(gameId, pic);
+  }
 }

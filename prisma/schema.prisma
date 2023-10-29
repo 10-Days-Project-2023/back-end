@@ -50,6 +50,7 @@ model Game {
   price           Int
   sale            Int         @default(0)
   genres          genre[]     @default([])
+  github          String 
 
   ownedUsers      User[]      @relation("Owner", fields: [ownedUserIds], references: [userId])
   ownedUserIds    String[]    @db.ObjectId

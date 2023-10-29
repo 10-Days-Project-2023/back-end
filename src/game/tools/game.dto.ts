@@ -14,16 +14,16 @@ export class CreateGameDto {
     @IsNumber()
     @IsNotEmpty()
     price: number;
-
-    @IsString()
-    @IsNotEmpty()
-    picture: string[];
     
     @IsNotEmpty()
     genres: genre[];
 
     @IsNotEmpty()
     createdUsernames: string[];
+
+    @IsNotEmpty()
+    @IsString()
+    github: string;
 }
 
 export class GetGameByGenreDto {
@@ -43,14 +43,14 @@ export class EditGameDto {
     @IsNumber()
     @Optional()
     price?: number;
-
-    @IsString()
-    @Optional()
-    picture?: string[];
     
     @Optional()
     genres?: genre[];
 
     @Optional()
     createdUsernames?: string[];
+
+    @Optional()
+    @IsString()
+    github: string;
 }

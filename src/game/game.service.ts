@@ -22,7 +22,7 @@ export class GameService {
     });
 
     // throw error when not found
-    if (!creators) throw new ForbiddenException('Credentials incorrect');
+    if (!creators || (creators.length != dto.createdUsernames.length)) throw new ForbiddenException('Credentials incorrect');
 
     delete dto.createdUsernames;
     // create game to db
@@ -55,10 +55,7 @@ export class GameService {
         gameId : gameId
       },
       data: {
-        gameName: dto.gameName,
-        price: dto.price,
-        picture: dto.picture,
-        genres: dto.genres,
+        ...dto,
         createdUsers : {
           set: creators
         }
@@ -88,7 +85,7 @@ export class GameService {
     return games;
   }
 
-  async getTop10() {
+  async getTopTen() {
     const unsorted = await this.prisma.game.findMany();
     
     const sorted = unsorted.sort((a,b) => {
@@ -99,9 +96,6 @@ export class GameService {
   }
 
   async getRandomGame() {
-    const countGame = await this.prisma.game.count();
-    const skip = randomInt(countGame);
-
     const randomFieldIdx = randomInt(3);
     const orderField = ["gameId","gameName","price"][randomFieldIdx];
 
@@ -118,7 +112,6 @@ export class GameService {
 
         },
         take: 10,
-        skip: skip,
         orderBy: {
           [orderField] : orderDi
         }

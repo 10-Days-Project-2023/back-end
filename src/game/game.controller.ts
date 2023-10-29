@@ -17,19 +17,14 @@ import { User } from '@prisma/client';
 export class GameController {
   constructor(private gameService: GameService) {}
 
-  @Get(':id')
-  getGameById(@Param('id') id : string) {
-    return this.gameService.getGameById(id);
-  }
-
   @Get('genre')
   getGamesByGenre(@Body() dto: GetGameByGenreDto) {
     return this.gameService.getGamesByGenre(dto);
   }
 
-  @Get('top10')
-  getTop10(){
-    return this.gameService.getTop10();
+  @Get('topTen')
+  getTopTen(){
+    return this.gameService.getTopTen();
   }
 
   @Get('random')
@@ -43,6 +38,11 @@ export class GameController {
     return this.gameService.getRandomGameByMember(user);
   }
 
+  @Get(':id')
+  getGameById(@Param('id') id : string) {
+    return this.gameService.getGameById(id);
+  }
+
   @Post()
   @UseGuards(JwtAuthGuard)
   createGame(@GetUser('userId') userId: string, @Body() dto: CreateGameDto) {
@@ -54,6 +54,4 @@ export class GameController {
   editGame(@GetUser('userId') userId: string, @Param('gameId') gameId : string, @Body() dto: EditGameDto) {
     return this.gameService.editGame(userId, gameId, dto);
   }
-
-
 }
