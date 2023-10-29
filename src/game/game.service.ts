@@ -22,7 +22,7 @@ export class GameService {
     });
 
     // throw error when not found
-    if (!creators) throw new ForbiddenException('Credentials incorrect');
+    if (!creators || (creators.length != dto.createdUsernames.length)) throw new ForbiddenException('Credentials incorrect');
 
     delete dto.createdUsernames;
     // create game to db
@@ -68,13 +68,6 @@ export class GameService {
     return game;
   }
 
-  async getGameById(id: string) {
-    const game = await this.prisma.game.findUnique({
-      where: { gameId: id },
-    });
-
-    return game;
-  }
 
   async getGamesByGenre(dto: GetGameByGenreDto) {
     const games = await this.prisma.game.findMany({
@@ -99,9 +92,6 @@ export class GameService {
   }
 
   async getRandomGame() {
-    const countGame = await this.prisma.game.count();
-    const skip = randomInt(countGame);
-
     const randomFieldIdx = randomInt(3);
     const orderField = ["gameId","gameName","price"][randomFieldIdx];
 
@@ -118,7 +108,6 @@ export class GameService {
 
         },
         take: 10,
-        skip: skip,
         orderBy: {
           [orderField] : orderDi
         }
@@ -154,5 +143,13 @@ export class GameService {
       });
     }
     return allRandomGame;
+  }
+
+  async getGameById(id: string) {
+    const game = await this.prisma.game.findUnique({
+      where: { gameId: id },
+    });
+
+    return game;
   }
 }

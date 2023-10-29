@@ -17,11 +17,6 @@ import { User } from '@prisma/client';
 export class GameController {
   constructor(private gameService: GameService) {}
 
-  @Get(':id')
-  getGameById(@Param('id') id : string) {
-    return this.gameService.getGameById(id);
-  }
-
   @Get('genre')
   getGamesByGenre(@Body() dto: GetGameByGenreDto) {
     return this.gameService.getGamesByGenre(dto);
@@ -47,6 +42,11 @@ export class GameController {
   @UseGuards(JwtAuthGuard)
   createGame(@GetUser('userId') userId: string, @Body() dto: CreateGameDto) {
     return this.gameService.createGame(userId, dto);
+  }
+
+  @Get(':id')
+  getGameById(@Param('id') id : string) {
+    return this.gameService.getGameById(id);
   }
 
   @Patch('/:gameId')

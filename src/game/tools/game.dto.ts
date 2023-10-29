@@ -24,6 +24,10 @@ export class CreateGameDto {
 
     @IsNotEmpty()
     createdUsernames: string[];
+
+    @IsNotEmpty()
+    @IsString()
+    github: string;
 }
 
 export class GetGameByGenreDto {
@@ -53,4 +57,8 @@ export class EditGameDto {
 
     @Optional()
     createdUsernames?: string[];
+
+    @Optional()
+    @IsString()
+    github: string;
 }
