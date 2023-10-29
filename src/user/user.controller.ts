@@ -12,17 +12,18 @@ import { EditUserDto } from './tools';
 import { GetUser } from '../auth/auth.decorator';
 import { User } from '@prisma/client';
 
-@UseGuards(JwtAuthGuard)
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Get('me')  
+  @Get('me')
+  @UseGuards(JwtAuthGuard)  
   getMe(@GetUser() user: User) {
    return user;
   }
 
   @Patch()
+  @UseGuards(JwtAuthGuard)
   editUser(@GetUser('userId') userId: string, @Body() dto: EditUserDto) {
     return this.userService.editUser(userId, dto);
   }
@@ -34,7 +35,7 @@ export class UserController {
   }
 
   @Get(':id')
-  getUsername(@Param('id') id: string) {
-    return this.userService.getUsername(id);
+  getUser(@Param('id') id: string) {
+    return this.userService.getUser(id);
   }
 }
