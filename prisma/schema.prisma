@@ -44,7 +44,7 @@ model User {
 model Game {
   gameId String @id @default(auto()) @map("_id") @db.ObjectId
 
-  gameName        String
+  gameName        String      @unique
   description     String
   picture         String[]    @default([])
   price           Int
@@ -76,4 +76,14 @@ enum Roles {
 enum genre {
   Action
   RPG
+  Casual
+  Simulation
+  Adventure
+  RolePlaying
+  Farm  
+  Tools
+  Shooter
+  Strategy
+  Survival
+  RogueLike
 }

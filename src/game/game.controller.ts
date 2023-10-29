@@ -54,4 +54,6 @@ export class GameController {
   editGame(@GetUser('userId') userId: string, @Param('gameId') gameId : string, @Body() dto: EditGameDto) {
     return this.gameService.editGame(userId, gameId, dto);
   }
+
+
 }

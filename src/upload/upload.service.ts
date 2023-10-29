@@ -14,13 +14,7 @@ export class UploadService {
     constructor(private readonly configService: ConfigService, private prisma: PrismaService) {}
 
     async uploadProfilePic(userId: string, file: Express.Multer.File) {
-        const userInfo = await this.prisma.user.findUnique({
-            where: {
-                userId: userId,
-            },
-        });
 
-        const currentTime: Date = new Date();
         const fullFilePath: string = `10day-profilepic/${file.originalname}`;
 
         const uploadResult: any = await this.s3Client.send(
@@ -57,5 +51,45 @@ export class UploadService {
         // const profilePic: any = await this.s3Client.send(params);
         // // console.log(profilePic.Body.toString('base64'));
         // return profilePic.toString('base64')
+    }
+
+    async uploadGame(gameId: string , file: Express.Multer.File){
+        const gameInfo = await this.prisma.game.findUnique({
+            where: { gameId: gameId,},
+        });
+
+        const fullFilePath: string = `game/${gameInfo.gameName}/${file.originalname}`;
+
+        const uploadResult: any = await this.s3Client.send(
+            new PutObjectCommand({
+                Bucket: process.env.AWS_S3_BUCKET_NAME,
+                Key: fullFilePath,
+                Body: file.buffer,
+                ACL: 'public-read',
+            }),
+        );
+        
+        // gameInfo.picture.push(`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fullFilePath}`);
+        // await this.prisma.game.update({
+        //     where:{gameId: gameId,},
+        //     data:{
+        //         picture: gameInfo.picture,
+        //     },
+        // })
+        return console.log('success uploading...');
+    }
+
+    async updatePic(gameId:string, pic:string[]){
+        const gameInfo = await this.prisma.game.findUnique({
+            where: { gameId: gameId,},
+        });
+
+        await this.prisma.game.update({
+            where:{gameId: gameId,},
+            data:{
+                picture: pic,
+            },
+        })
+        console.log("success updating...")
     }
 }
