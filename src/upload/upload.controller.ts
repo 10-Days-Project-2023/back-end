@@ -7,12 +7,12 @@ import { JwtAuthGuard } from 'src/auth/register/tools';
 @Controller('upload')
 @UseGuards(JwtAuthGuard)
 export class UploadController {
-    constructor(private readonly uploadService: UploadService) {}
+  constructor(private readonly uploadService: UploadService) {}
 
-    @Get()
-    async getProfilePicBase64(@GetUser('userId') userId: string) {
-        return this.uploadService.getProfilePicBase64(userId);
-    }
+  @Get()
+  async getProfilePicBase64(@GetUser('userId') userId: string) {
+    return this.uploadService.getProfilePicBase64(userId);
+  }
 
     @Post('profilepic')
     @UseInterceptors(FileInterceptor('file'))
