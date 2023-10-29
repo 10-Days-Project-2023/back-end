@@ -22,9 +22,9 @@ export class GameController {
     return this.gameService.getGamesByGenre(dto);
   }
 
-  @Get('top10')
-  getTop10(){
-    return this.gameService.getTop10();
+  @Get('topTen')
+  getTopTen(){
+    return this.gameService.getTopTen();
   }
 
   @Get('random')
@@ -36,6 +36,11 @@ export class GameController {
   @UseGuards(JwtAuthGuard)
   getRandomGameByMember(@GetUser() user: User){
     return this.gameService.getRandomGameByMember(user);
+  }
+
+  @Get(':id')
+  getGameById(@Param('id') id : string) {
+    return this.gameService.getGameById(id);
   }
 
   @Post()
@@ -54,6 +59,4 @@ export class GameController {
   editGame(@GetUser('userId') userId: string, @Param('gameId') gameId : string, @Body() dto: EditGameDto) {
     return this.gameService.editGame(userId, gameId, dto);
   }
-
-
 }

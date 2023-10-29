@@ -55,10 +55,7 @@ export class GameService {
         gameId : gameId
       },
       data: {
-        gameName: dto.gameName,
-        price: dto.price,
-        picture: dto.picture,
-        genres: dto.genres,
+        ...dto,
         createdUsers : {
           set: creators
         }
@@ -81,7 +78,7 @@ export class GameService {
     return games;
   }
 
-  async getTop10() {
+  async getTopTen() {
     const unsorted = await this.prisma.game.findMany();
     
     const sorted = unsorted.sort((a,b) => {

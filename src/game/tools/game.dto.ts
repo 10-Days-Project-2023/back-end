@@ -14,10 +14,6 @@ export class CreateGameDto {
     @IsNumber()
     @IsNotEmpty()
     price: number;
-
-    @IsString()
-    @IsNotEmpty()
-    picture: string[];
     
     @IsNotEmpty()
     genres: genre[];
@@ -47,10 +43,6 @@ export class EditGameDto {
     @IsNumber()
     @Optional()
     price?: number;
-
-    @IsString()
-    @Optional()
-    picture?: string[];
     
     @Optional()
     genres?: genre[];
