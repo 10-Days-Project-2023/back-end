@@ -2,6 +2,7 @@ import {
   Body, 
   Controller, 
   Get, 
+  Param, 
   Patch, 
   UseGuards 
 } from '@nestjs/common';
@@ -30,5 +31,10 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   getMyGame(@GetUser('userId') userId: string) {
     return this.userService.getMyGame(userId);
+  }
+
+  @Get(':id')
+  getUsername(@Param('id') id: string) {
+    return this.userService.getUsername(id);
   }
 }
