@@ -10,8 +10,8 @@ export class UploadController {
     constructor(private readonly uploadService: UploadService) {}
 
     @Get()
-    async getProfilePic(@GetUser('userId') userId: string) {
-        return this.uploadService.getProfilePic(userId);
+    async getProfilePicBase64(@GetUser('userId') userId: string) {
+        return this.uploadService.getProfilePicBase64(userId);
     }
 
     @Post('profilepic')
