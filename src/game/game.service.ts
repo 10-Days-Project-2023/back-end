@@ -10,7 +10,6 @@ export class GameService {
 
   async createGame(userId: string, dto: CreateGameDto) {
     // turn creator username to userId
-    console.log(dto);
     const creators = await this.prisma.user.findMany({
       select : {
         userId : true
