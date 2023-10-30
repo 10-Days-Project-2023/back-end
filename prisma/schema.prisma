@@ -22,7 +22,7 @@ model User {
   username String  @unique
   github   String?
   picture  String?
-  bulb     Int     @default(0)
+  bulb     Int     @default(10000)
 
   roles Roles[] @default([])
 
