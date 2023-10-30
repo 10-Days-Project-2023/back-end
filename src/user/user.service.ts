@@ -40,7 +40,7 @@ export class UserService {
     const games = await this.prisma.game.findMany({
       where: {
         ownedUserIds : {
-          has: userId
+          has: userId,
         }
       }
     });

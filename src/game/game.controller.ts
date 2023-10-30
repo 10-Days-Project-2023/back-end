@@ -41,6 +41,7 @@ export class GameController {
   @Post()
   @UseGuards(JwtAuthGuard)
   createGame(@GetUser('userId') userId: string, @Body() dto: CreateGameDto) {
+    console.log("1");
     return this.gameService.createGame(userId, dto);
   }
 

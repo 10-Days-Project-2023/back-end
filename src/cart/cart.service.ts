@@ -46,7 +46,14 @@ export class CartService {
                 // Game
                 await this.prisma.game.update({
                     where: { gameId: game.gameId },
-                    data: { sale: game.sale + 1 },
+                    data: { 
+                        sale: game.sale + 1 ,
+                        ownedUsers: {
+                            connect: {
+                                userId: user.userId,
+                            },
+                        },
+                    },
                 });
 
                 // Game creators
