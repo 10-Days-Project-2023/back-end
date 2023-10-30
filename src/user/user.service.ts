@@ -37,14 +37,13 @@ export class UserService {
   }
 
   async getMyGame(userId: string) {
-    const games = await this.prisma.user.findUnique({
-      select : {
-        ownedGameIds : true
-      },
-      where : {
-        userId : userId
+    const games = await this.prisma.game.findMany({
+      where: {
+        ownedUserIds : {
+          has: userId
+        }
       }
-    })
+    });
 
     return games;
   }
