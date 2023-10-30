@@ -76,20 +76,15 @@ enum Roles {
 
 enum genre {
   Action
-  Adventure
-  Casual
-  Farm
   RPG
-  Maze
+  Casual
   Simulation
-  Shooter
-  Survival
-  Strategy
+  Adventure
   RolePlaying
-  RogueLike
+  Farm  
   Tools
-  TurnBased
-  TowerDefense
-  Puzzle
-  PartyGame
+  Shooter
+  Strategy
+  Survival
+  RogueLike
 }
