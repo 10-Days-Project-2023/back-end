@@ -18,20 +18,20 @@ export class CartController {
 
   @Get()
   getCart(@GetUser() user: User){
-    return user.cartedGameIds;
+    return this.cartService.getCartGame(user);
   }
 
-  @Post("/:id")
-  updateCart(@GetUser() user: User, @Param('id') gameId: string) {
-    return this.cartService.updateCart(user, gameId);
-  }
-
-  @Post("/purchase")
+  @Get("purchase")
   purchase(@GetUser() user: User) {
     return this.cartService.purchase(user);
   }
 
-  @Delete("/:id")
+  @Get(":id")
+  updateCart(@GetUser() user: User, @Param('id') gameId: string) {
+    return this.cartService.updateCart(user, gameId);
+  }
+
+  @Delete(":id")
   deleteCart(@GetUser() user: User, @Param('id') gameId: string){
     return this.cartService.deleteCart(user, gameId);
   }

@@ -11,32 +11,32 @@ datasource db {
 }
 
 model User {
-  userId            String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @id @default(auto()) @map("_id") @db.ObjectId
 
-  provider          String
-  providerId        String?    @unique
+  provider   String
+  providerId String? @unique
 
-  email             String     @unique
-  hash              String?
+  email String  @unique
+  hash  String?
 
-  username          String     @unique
-  github            String?    
-  picture           String?
-  bulb              Int        @default(0)
+  username String  @unique
+  github   String?
+  picture  String?
+  bulb     Int     @default(0)
 
-  roles             Roles[]    @default([])
+  roles Roles[] @default([])
 
-  ownedGames        Game[]     @relation("Owner", fields: [ownedGameIds], references: [gameId])
-  ownedGameIds      String[]   @db.ObjectId
+  ownedGames   Game[]   @relation("Owner", fields: [ownedGameIds], references: [gameId])
+  ownedGameIds String[] @db.ObjectId
 
-  createdGames      Game[]     @relation("Creator", fields: [createdGameIds], references: [gameId])
-  createdGameIds    String[]   @db.ObjectId
+  createdGames   Game[]   @relation("Creator", fields: [createdGameIds], references: [gameId])
+  createdGameIds String[] @db.ObjectId
 
-  cartedGames       Game[]     @relation("Carting", fields: [cartedGameIds], references: [gameId])
-  cartedGameIds     String[]   @db.ObjectId
+  cartedGames   Game[]   @relation("Carting", fields: [cartedGameIds], references: [gameId])
+  cartedGameIds String[] @db.ObjectId
 
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("users")
 }
@@ -52,17 +52,17 @@ model Game {
   genres          genre[]     @default([])
   github          String 
 
-  ownedUsers      User[]      @relation("Owner", fields: [ownedUserIds], references: [userId])
-  ownedUserIds    String[]    @db.ObjectId
+  ownedUsers   User[]   @relation("Owner", fields: [ownedUserIds], references: [userId])
+  ownedUserIds String[] @db.ObjectId
 
-  createdUsers    User[]      @relation("Creator", fields: [createdUserIds], references: [userId])
-  createdUserIds  String[]    @db.ObjectId
+  createdUsers   User[]   @relation("Creator", fields: [createdUserIds], references: [userId])
+  createdUserIds String[] @db.ObjectId
 
-  cartedUsers     User[]      @relation("Carting", fields: [cartedUserIds], references: [userId])
-  cartedUserIds   String[]    @db.ObjectId
+  cartedUsers   User[]   @relation("Carting", fields: [cartedUserIds], references: [userId])
+  cartedUserIds String[] @db.ObjectId
 
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("games")
 }
@@ -76,15 +76,20 @@ enum Roles {
 
 enum genre {
   Action
-  RPG
-  Casual
-  Simulation
   Adventure
-  RolePlaying
-  Farm  
-  Tools
+  Casual
+  Farm
+  RPG
+  Maze
+  Simulation
   Shooter
-  Strategy
   Survival
+  Strategy
+  RolePlaying
   RogueLike
+  Tools
+  TurnBased
+  TowerDefense
+  Puzzle
+  PartyGame
 }

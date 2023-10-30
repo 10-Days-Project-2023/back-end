@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { EditUserDto } from './tools';
 import { Roles } from '@prisma/client';
@@ -47,5 +47,15 @@ export class UserService {
     })
 
     return games;
+  }
+
+  async getUser(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        userId: userId
+      }
+    })
+    if (!user) throw new ForbiddenException('Credentials incorrect');
+    return user;
   }
 }

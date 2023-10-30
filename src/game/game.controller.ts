@@ -38,18 +38,18 @@ export class GameController {
     return this.gameService.getRandomGameByMember(user);
   }
 
-  @Get(':id')
-  getGameById(@Param('id') id : string) {
-    return this.gameService.getGameById(id);
-  }
-
   @Post()
   @UseGuards(JwtAuthGuard)
   createGame(@GetUser('userId') userId: string, @Body() dto: CreateGameDto) {
     return this.gameService.createGame(userId, dto);
   }
 
-  @Patch('/:gameId')
+  @Get(':id')
+  getGameById(@Param('id') id : string) {
+    return this.gameService.getGameById(id);
+  }
+
+  @Patch(':gameId')
   @UseGuards(JwtAuthGuard)
   editGame(@GetUser('userId') userId: string, @Param('gameId') gameId : string, @Body() dto: EditGameDto) {
     return this.gameService.editGame(userId, gameId, dto);

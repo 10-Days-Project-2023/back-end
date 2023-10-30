@@ -65,13 +65,6 @@ export class GameService {
     return game;
   }
 
-  async getGameById(id: string) {
-    const game = await this.prisma.game.findUnique({
-      where: { gameId: id },
-    });
-
-    return game;
-  }
 
   async getGamesByGenre(dto: GetGameByGenreDto) {
     const games = await this.prisma.game.findMany({
@@ -147,5 +140,13 @@ export class GameService {
       });
     }
     return allRandomGame;
+  }
+
+  async getGameById(id: string) {
+    const game = await this.prisma.game.findUnique({
+      where: { gameId: id },
+    });
+
+    return game;
   }
 }
